@@ -16,7 +16,7 @@ let questionIndex = 0
 let currentPlayerIndex = 0
 
 let timer = null
-let timeLeft = 10
+let timeLeft = 30
 
 // LOAD QUESTIONS
 function loadQuestions(){

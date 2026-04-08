@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h1>Question Editor</h1>
+
+<div class="editor">
+
+<input id="q" placeholder="Question">
+
+<input id="a" placeholder="Answer A">
+<input id="b" placeholder="Answer B">
+<input id="c" placeholder="Answer C">
+<input id="d" placeholder="Answer D">
+
+<select id="correct">
+<option>A</option>
+<option>B</option>
+<option>C</option>
+<option>D</option>
+</select>
+
+<button onclick="add()">Add Question</button>
+
+</div>
+
+<script>
+
+async function add(){
+
+let q = {
+question: document.getElementById("q").value,
+A: document.getElementById("a").value,
+B: document.getElementById("b").value,
+C: document.getElementById("c").value,
+D: document.getElementById("d").value,
+correct: document.getElementById("correct").value
+}
+
+await fetch("/addQuestion",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify(q)
+})
+
+alert("Question added!")
+
+}
+</script>
+
+</body>
+</html>

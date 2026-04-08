@@ -1,0 +1,74 @@
+<link rel="stylesheet" href="style.css">
+<!DOCTYPE html>
+<html>
+
+<head>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="logo">1 z 10</div>
+
+<div id="timer" class="timer">10</div>
+
+<div id="players" class="players"></div>
+
+<div class="question-box" id="question">Waiting for question...</div>
+
+<div class="answers" id="answers"></div>
+
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="js/stage.js"></script>
+const socket = io()
+
+let activeIndex = 0
+
+socket.on("players",(players)=>{
+
+let div=document.getElementById("players")
+div.innerHTML=""
+
+players.forEach((p,i)=>{
+
+let el=document.createElement("div")
+el.className="player"
+
+if(i === activeIndex){
+el.classList.add("active")
+}
+
+if(p.eliminated){
+el.classList.add("out")
+}
+
+el.innerHTML=`
+<div class="name">${p.name}</div>
+<div class="lives">${"●".repeat(p.lives)}</div>
+`
+
+div.appendChild(el)
+
+})
+
+})
+
+socket.on("question",(q)=>{
+
+document.getElementById("question").innerText=q.question
+
+document.getElementById("answers").innerHTML=`
+<div class="answer">A ${q.A}</div>
+<div class="answer">B ${q.B}</div>
+<div class="answer">C ${q.C}</div>
+<div class="answer">D ${q.D}</div>
+`
+
+})
+</script>
+
+</body>
+</html>

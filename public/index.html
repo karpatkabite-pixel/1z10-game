@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<link rel="stylesheet" href="style.css">
+<title>1 z 10</title>
+</head>
+
+<body>
+
+<div class="menu">
+
+<h1 class="logo">1 z 10</h1>
+
+<div class="menu-buttons">
+<a href="/stage.html" class="btn">🎮 Watch Game</a>
+</div>
+
+<div class="qr-container">
+
+<div class="qr-box">
+<h2>📱 Players Join</h2>
+<img id="qrJoin">
+<p>Scan to join</p>
+</div>
+
+<div class="qr-box">
+<h2>🎛 Host Panel</h2>
+<img id="qrHost">
+<p>Scan to control</p>
+</div>
+
+</div>
+
+</div>
+
+<script>
+const base = window.location.origin
+
+document.getElementById("qrJoin").src =
+"https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + base + "/join.html"
+
+document.getElementById("qrHost").src =
+"https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + base + "/host.html"
+</script>
+
+</body>
+</html>

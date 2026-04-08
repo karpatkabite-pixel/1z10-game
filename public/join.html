@@ -1,28 +1,75 @@
+
 <!DOCTYPE html>
 <html>
 
 <head>
-<link rel="stylesheet" href="style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Join Game</title>
 </head>
 
 <body>
 
-<h1>Join Game</h1>
+<div class="menu">
 
-<input id="name" placeholder="Your name">
+  <h1 class="logo">1 z 10</h1>
 
-<select id="avatar">
-<option value="😀">😀</option>
-<option value="😎">😎</option>
-<option value="🤖">🤖</option>
-<option value="👽">👽</option>
-</select>
+  <input id="name" placeholder="Your name">
 
-<button onclick="join()">Join Game</button>
+  <h3>Choose Avatar</h3>
+
+  <div class="avatar-select" id="avatarGrid">
+
+    <img src="avatars/avatar1.png">
+    <img src="avatars/avatar2.png">
+    <img src="avatars/avatar3.png">
+    <img src="avatars/avatar4.png">
+    <img src="avatars/avatar5.png">
+    <img src="avatars/avatar6.png">
+    <img src="avatars/avatar7.png">
+    <img src="avatars/avatar8.png">
+    <img src="avatars/avatar9.png">
+    <img src="avatars/avatar10.png">
+    <img src="avatars/avatar11.png">
+    <img src="avatars/avatar12.png">
+    <img src="avatars/avatar13.png">
+    <img src="avatars/avatar14.png">
+    <img src="avatars/avatar15.png">
+
+  </div>
+
+  <input type="hidden" id="avatar">
+
+  <button onclick="join()">Join Game</button>
+
+</div>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="js/player.js"></script>
+
+<script>
+
+// BETTER avatar selection (no inline onclick)
+const avatars = document.querySelectorAll("#avatarGrid img")
+
+avatars.forEach(img => {
+
+  img.addEventListener("click", () => {
+
+    // remove previous selection
+    avatars.forEach(i => i.classList.remove("selected"))
+
+    // highlight selected
+    img.classList.add("selected")
+
+    // save value
+    document.getElementById("avatar").value = img.src
+
+  })
+
+})
+
+</script>
 
 </body>
 </html>

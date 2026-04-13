@@ -1,5 +1,14 @@
 const socket = io()
+const sounds = {
+bg: new Audio("sounds/bg.mp3"),
+click: new Audio("sounds/click.mp3"),
+tick: new Audio("sounds/tick.mp3"),
+wrong: new Audio("sounds/wrong.mp3")
+}
 
+// LOOP BACKGROUND MUSIC
+sounds.bg.loop = true
+sounds.bg.volume = 0.3
 let myTurn = false
 let players = []
 

@@ -1,4 +1,8 @@
 const socket = io()
+
+// =========================
+// SOUNDS
+// =========================
 const sounds = {
 bg: new Audio("sounds/bg.mp3"),
 click: new Audio("sounds/click.mp3"),
@@ -6,9 +10,9 @@ tick: new Audio("sounds/tick.mp3"),
 wrong: new Audio("sounds/wrong.mp3")
 }
 
-// LOOP BACKGROUND MUSIC
 sounds.bg.loop = true
 sounds.bg.volume = 0.3
+
 let myTurn = false
 let players = []
 
@@ -30,9 +34,12 @@ alert("Choose an avatar!")
 return
 }
 
+// start music (user interaction required)
+sounds.bg.play().catch(()=>{})
+
 socket.emit("join",{name,avatar})
 
-// BUILD PLAYER UI (MOVED INSIDE JOIN)
+// BUILD UI
 document.body.innerHTML = `
 
 <div class="player-ui">
@@ -64,6 +71,15 @@ document.body.innerHTML = `
 window.send = function(a){
 
 if(!myTurn) return
+
+// 🔊 click sound
+sounds.click.currentTime = 0
+sounds.click.play()
+
+// 📳 vibration (optional)
+if(navigator.vibrate){
+navigator.vibrate(100)
+}
 
 document.getElementById("status").innerText = "Answer sent!"
 
@@ -140,13 +156,24 @@ btn.disabled = !myTurn
 // =========================
 socket.on("timer",(t)=>{
 if(myTurn){
+
 document.getElementById("status").innerText = "Time: " + t
+
+// 🔊 tick sound
+sounds.tick.currentTime = 0
+sounds.tick.play()
+
 }
 })
 
+// =========================
+// TIME UP
+// =========================
 socket.on("timeUp",()=>{
 if(myTurn){
 document.getElementById("status").innerText = "Too slow!"
+sounds.wrong.currentTime = 0
+sounds.wrong.play()
 }
 })
 
@@ -154,6 +181,8 @@ document.getElementById("status").innerText = "Too slow!"
 // WINNER
 // =========================
 socket.on("winner",(w)=>{
+
+sounds.bg.pause()
 
 document.body.innerHTML = `
 <h1>🏆 Winner</h1>
